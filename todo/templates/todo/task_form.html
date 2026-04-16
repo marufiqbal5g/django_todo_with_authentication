@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Edit Task</title>
-</head>
-<body>
+{% extends 'todo/base.html' %}
 
-<h1>Edit Task</h1>
+{% block content %}
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Update</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-md-5">
 
-<a href="{% url 'task_list' %}">Back</a>
+        <div class="card shadow">
+            <div class="card-body">
+                <h3 class="mb-3">Edit Task</h3>
 
-</body>
-</html>
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button class="btn btn-primary w-100">Update</button>
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}

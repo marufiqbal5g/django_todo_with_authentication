@@ -1,20 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Delete Task</title>
-</head>
-<body>
+{% extends 'todo/base.html' %}
 
-<h1>Delete Task</h1>
+{% block content %}
 
-<p>Are you sure you want to delete "{{ task }}"?</p>
+<div class="text-center">
+    <h3>Delete Task</h3>
+    <p>Are you sure you want to delete "{{ task }}"?</p>
 
-<form method="POST">
-    {% csrf_token %}
-    <button type="submit">Yes, Delete</button>
-</form>
+    <form method="POST">
+        {% csrf_token %}
+        <button class="btn btn-danger">Yes, Delete</button>
+        <a href="{% url 'task_list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 
-<a href="{% url 'task_list' %}">Cancel</a>
-
-</body>
-</html>
+{% endblock %}

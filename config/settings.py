@@ -119,6 +119,5 @@ STATIC_URL = 'static/'
 
 
 LOGIN_URL = 'login'
-# LOGIN_REDIRECT_URL = 'task_list'
 LOGOUT_REDIRECT_URL = 'home'
 LOGIN_REDIRECT_URL = 'home'

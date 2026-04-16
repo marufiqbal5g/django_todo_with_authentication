@@ -1,36 +1,51 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Todo List</title>
-</head>
-<body>
+{% extends 'todo/base.html' %}
 
-<h1>Todo List</h1>
+{% block content %}
 
-<form method="POST" action="{% url 'logout' %}">
-    {% csrf_token %}
-    <button type="submit">Logout</button>
-</form>
+<h2 class="mb-4">My Todos</h2>
 
-<form method="POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add Task</button>
-</form>
+<!-- Add Task -->
+<div class="card mb-4 shadow-sm">
+    <div class="card-body">
+        <form method="POST" class="row g-2">
+            {% csrf_token %}
+            <div class="col-md-8">
+                {{ form.title }}
+            </div>
+            <div class="col-md-2">
+                {{ form.completed }}
+            </div>
+            <div class="col-md-2">
+                <button class="btn btn-primary w-100">Add</button>
+            </div>
+        </form>
+    </div>
+</div>
 
-<hr>
+<!-- Task List -->
+<div class="card shadow-sm">
+    <ul class="list-group list-group-flush">
+        {% for task in tasks %}
+            <li class="list-group-item d-flex justify-content-between align-items-center">
 
-<ul>
-    {% for task in tasks %}
-        <li>
-            {{ task.title }} - 
-            {% if task.completed %}✅{% else %}❌{% endif %}
+                <div>
+                    {% if task.completed %}
+                        <span class="text-decoration-line-through">{{ task.title }}</span>
+                    {% else %}
+                        {{ task.title }}
+                    {% endif %}
+                </div>
 
-            <a href="{% url 'task_update' task.id %}">Edit</a>
-            <a href="{% url 'task_delete' task.id %}">Delete</a>
-        </li>
-    {% endfor %}
-</ul>
+                <div>
+                    <a href="{% url 'task_update' task.id %}" class="btn btn-sm btn-warning">Edit</a>
+                    <a href="{% url 'task_delete' task.id %}" class="btn btn-sm btn-danger">Delete</a>
+                </div>
 
-</body>
-</html>
+            </li>
+        {% empty %}
+            <li class="list-group-item text-center">No tasks yet</li>
+        {% endfor %}
+    </ul>
+</div>
+
+{% endblock %}
