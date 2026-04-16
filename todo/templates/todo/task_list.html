@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Todo List</title>
+</head>
+<body>
+
+<h1>Todo List</h1>
+
+<form method="POST" action="{% url 'logout' %}">
+    {% csrf_token %}
+    <button type="submit">Logout</button>
+</form>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Add Task</button>
+</form>
+
+<hr>
+
+<ul>
+    {% for task in tasks %}
+        <li>
+            {{ task.title }} - 
+            {% if task.completed %}✅{% else %}❌{% endif %}
+
+            <a href="{% url 'task_update' task.id %}">Edit</a>
+            <a href="{% url 'task_delete' task.id %}">Delete</a>
+        </li>
+    {% endfor %}
+</ul>
+
+</body>
+</html>

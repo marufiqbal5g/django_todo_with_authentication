@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+</head>
+<body>
+
+<h1>Welcome to Todo App 🎯</h1>
+
+{% if user.is_authenticated %}
+    <h3>Welcome, {{ user.username }} 👋</h3>
+    
+    <a href="{% url 'task_list' %}">Go to My Todos</a>
+
+    <form method="POST" action="{% url 'logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+{% else %}
+    <p>Please login or register to continue.</p>
+
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+{% endif %}
+
+</body>
+</html>
